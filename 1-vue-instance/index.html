@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-instance</title>
+    <link rel="shortcut icon" href="/1-vue-instance/components/favicon.png" type="image/png">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <p>{{ content }}</p>
+        <a :target="facebook.target" :href="facebook.url" :alt="facebook.alt">{{facebook.title}}</a>
+        <br />
+        <br />
+        <button v-on:click="changeTitle">Title değiştir!</button>
+    </div>
+
+
+    <script src="app.js" />
+</body>
+
+</html>
