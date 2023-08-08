@@ -7,6 +7,7 @@
     <title>vue-instance</title>
     <link rel="shortcut icon" href="/1-vue-instance/components/favicon.png" type="image/png">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -15,7 +16,11 @@
         <p>{{ content }}</p>
         <a :target="facebook.target" :href="facebook.url" :alt="facebook.alt">{{facebook.title}}</a>
         <br />
-        <button v-on:click="changeTitle">Title değiştir!</button>
+        <button v-on:click="changeTitle('1. buton')">Title değiştir!</button>
+        <button v-on:click="changeTitle('2. buton')">Title değiştir!</button>
+        <span>{{ coords.x }}, {{ coords.y }}</span>
+        <div @mousemove="updateCoords" class="box"
+            @click="changeTitle('Box üzerinden gelen')"></div>
     </div>
 
 

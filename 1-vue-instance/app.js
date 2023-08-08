@@ -8,12 +8,23 @@ const app = Vue.createApp({
                 target: "_blank",
                 url: "https://www.facebook.com",
                 alt: "Facebook alt"
+            },
+            coords: {
+                x: 0,
+                y: 0
             }
         };
     },
     methods: {
-        changeTitle() {
-            alert()
+        changeTitle(pTitle) {
+            this.title = pTitle;
+        },
+        updateCoords(event) {
+            this.changeTitle(`${event.x}, ${event.y}`)
+            this.coords = {
+                x: event.x,
+                y: event.y
+            }
         }
     },
 }).mount("#app");
