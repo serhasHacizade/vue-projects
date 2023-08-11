@@ -9,7 +9,6 @@ const app = Vue.createApp({
     methods: {
         searchList() {
             this.filteredLİst = this.itemList.filter(i => i.includes(this.search))
-            console.log("FilteredList :>> ", filteredLİst);
         }
     },
 }).mount("#app");
