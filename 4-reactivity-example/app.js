@@ -3,12 +3,17 @@ const app = Vue.createApp({
         return {
             search: "",
             itemList: ["elma","armut","kiraz","çilek"],
-            filteredLİst: []
+            // filteredList: []
         }
     },
     methods: {
         searchList() {
-            this.filteredLİst = this.itemList.filter(i => i.includes(this.search))
+            //this.filteredList = this.itemList.filter(i => i.includes(this.search))
         }
     },
+    computed: {
+        filteredList() {
+            return this.itemList.filter(i => i.includes(this.search))
+        }
+    }
 }).mount("#app");
