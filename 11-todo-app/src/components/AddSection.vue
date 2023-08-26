@@ -3,7 +3,6 @@
     <input v-model="todoText" type="text" @keydown.enter="addNewTodo" id="todoText" placeholder="type somethings...">
 
 </template>
-
 <script>
     export default {
         data() {
