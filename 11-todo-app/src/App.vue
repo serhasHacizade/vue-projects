@@ -35,12 +35,13 @@ export default {
       todoList: []
     }
   },
+
   methods: {
     deleteItem(todoItem) {
       this.todoList = this.todoList.filter(t => t !== todoItem)
     },
-    addNewTodo(event) {
-      console.log(event);
+    addNewTodo(data) {
+      console.log(data);
       
     }
   }

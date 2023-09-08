@@ -12,8 +12,8 @@
         },
         methods: {
             addNewTodo() {
-                this.$emit("add-todo", this.todoText);
-                this.todoText = null;
+                this.$emit("add-todo", "Bu benim mesajım");
+
             }
         }
     }
