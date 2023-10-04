@@ -2,7 +2,7 @@
     <div class="container">
         <ListSection :userList="userList" />
         <AddSection @new-item="$emit('new-item', $event)" />
-      </div>        
+      </div>
 </template>
 <script>
 import ListSection from "@/components/ListSection.vue"
