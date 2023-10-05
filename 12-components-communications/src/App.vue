@@ -1,20 +1,31 @@
 <template>
-  <UserSection :userList="userList"  @new-item="userList.push($event)"/>
+  <UserSection />
 
 </template>
 
 <script>
 import UserSection from "@/components/UserSection.vue"
-
-
 export default {
   components: {
     UserSection
   },
   data() {
     return {
-      userList: ["Tayfun", "Gökhan", "Murat", "Erne"]
+      provideData : {
+        userList: ["Tayfun", "Gökhan", "Murat", "Erne"]
+      }
     }
   },
+  provide() {
+    return {
+      userList : this.provideData.userList,
+      newItem: this.newItem
+    }
+  },
+  methods: {
+    newItem(item) {
+      this.provideData.userList.push(item);
+    }
+  }
 }
 </script>

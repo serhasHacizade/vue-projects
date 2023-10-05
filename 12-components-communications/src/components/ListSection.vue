@@ -6,6 +6,6 @@
 </template>
 <script>
     export default {
-        props: ["userList"]
+        inject: ["userList"]
     };
 </script>
