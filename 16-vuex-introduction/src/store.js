@@ -30,6 +30,19 @@ const store = createStore({
             delete user.password;
             return user;
         }
+    },
+    mutations: {
+        newItem(state, payload) {
+            state.itemList.push(payload);
+        }
+    },
+    actions: {
+        NewItem(context, item) {
+            // console.log("item :>> ", item);
+            setTimeout(() => {
+                context.commit("newItem", item)
+            }, 1000);
+        }
     }
 });
 
