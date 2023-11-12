@@ -1,3 +1,42 @@
 <template>
-    <h1>NewBookmark page</h1>
+    <div class="form-area card border p-2">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" v-model="userData.title" class="form-control" id="title" placeholder="type a title">
+          </div>
+          <div class="mb-3">
+            <label for="url" class="form-label">URL</label>
+            <input type="text" v-model="userData.url" class="form-control" id="url" placeholder="https://...">
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" v-model="userData.description" id="description" placeholder="type a description"></textarea>
+          </div>
+          <div class="d-flex justify-content-end align-items-center">
+              <button class="btn btn-sm btn-secondary me-1" @click="$router.push({name: 'HomePage'})">Cancel</button>
+              <button class="btn btn-sm btn-primary" @click="onSave">Save</button>
+          </div>
+    </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      userData: {
+        title: null,
+        url: null,
+        description: null
+      }
+    }
+  },
+  methods: {
+    onSave() {
+      console.log(this.userData);
+      this.$axios.post("https://localhost:3000/bookmarks/", this.userData).then((save_response) => {
+        console.log("save_response: ", save_response);
+      })
+    }
+  },
+}
+</script>
