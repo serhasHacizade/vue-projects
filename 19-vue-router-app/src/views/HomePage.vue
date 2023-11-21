@@ -1,5 +1,30 @@
+
+<script>
+export default {
+  data() {
+    return {
+      bookmarkList: []
+    }
+  },
+  created() {
+    this.$appAxios.get("/bookmarks").then(bookmarks_list_response => {
+      this.bookmarkList = bookmarks_list_response.data || {}
+    });
+  },
+  methods: {
+    deleteBookmark(bookmark) {
+      this.$appAxios.delete(`/bookmarks/${bookmark.id}`).then(delete_response => {
+        if (delete_response.status === 200) {
+          this.bookmarkList = this.bookmarkList.filter(b => b.id !== bookmark.id)
+        }
+      })
+    }
+  },
+}
+</script>
+
 <template>
-    <div class="card border p-2">
+    <div class="p-2">
         <div class="d-flex justify-content-end">
             <button class="btn btn-primary btn-sm" @click="$router.push({name: 'NewBookmark'})">+ Add</button>
         </div>
@@ -9,16 +34,20 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">URL</th>
+                <th scope="col">Description</th>
                 <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="i in 10" :key="i">
-                <th scope="row">{{ i }}</th>
-                <td>Vue3 document</td>
-                <td>https://v3.vue.js.org</td>
+              <tr v-for="bookmark in bookmarkList" :key="bookmark.id">
+                <th scope="row">{{ bookmark.id }}</th>
+                <td>{{ bookmark.title }}</td>
                 <td>
-                    <button class="btn btn-sm btn-danger">Delete</button>
+                  <a :href="bookmark.url" target="_blank">{{ bookmark.url}}</a>
+                </td>
+                <td>{{ bookmark.description}}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" @click="deleteBookmark(bookmark)">Delete</button>
                 </td>
               </tr>
               

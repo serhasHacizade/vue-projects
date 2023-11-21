@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import router from '../router';
+
 export default {
   data() {
     return {
@@ -33,9 +35,14 @@ export default {
   methods: {
     onSave() {
       console.log(this.userData);
-      this.$axios.post("https://localhost:3000/bookmarks/", this.userData).then((save_response) => {
+      this.$appAxios.post("/bookmarks", this.userData).then((save_response) => {
         console.log("save_response: ", save_response);
+        this.resetData();
+        this.$router.push("/");
       })
+    },
+    resetData() {
+      Object.keys(this.userData).forEach(key => (this.userData[key] = null))
     }
   },
 }
