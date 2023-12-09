@@ -1,34 +1,61 @@
 <script>
+import io from "socket.io-client";
+
 export default {
     data() {
         return {
             joined: false,
-            currentUser: ""
+            currentUser: "",
+            text: "",
+            messages: [
+            ],
         }
     },
     methods: {
         join() {
             this.joined = true
-            console.log(this.currentUser);
+            this.socketInstance = io("http://localhost:3000/");
+
+            this.socketInstance.on("message:received", (data) => {
+                this.messages = this.messages.concat(data);
+            });
         },
         sendMessage() {
-            console.log(this.text);
+            this.addMessage();
+            this.text = "";
+        },
+        addMessage() {
+            const message = {
+                id: new Date().getTime(),
+                text: this.text,
+                user: this.currentUser
+            };
+
+            this.messages = this.messages.concat(message);
+            this.socketInstance.emit("message", message);
         }
     },
     name: "ChatApp",
-    text: ""
 }
 </script>
 
 <template>
     <div v-if="!joined" class="parent-container">
         <div class="name-container">
-            <input v-model="currentUser" type="text" class="user-name" />
+            <input v-model="currentUser" type="text" class="user-name" v-on:keyup.enter="join" />
             <button v-on:click="join" class="join-button">Join</button>
         </div>
     </div>
     <div class="text-input-container">
         <div v-if="joined">
+            <div class="list-container">
+                <div v-for="message in messages" :key="message.id">
+                    <b>
+                        {{ message.user }}
+                    </b>
+                    : {{ message.text }}
+                </div>
+            </div>
             <div>
                 <textarea v-model="text" class="text-message" v-on:keyup.enter="sendMessage"></textarea>
             </div>
@@ -74,6 +101,7 @@ export default {
     bottom: 0px;
     height: 70px;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 
