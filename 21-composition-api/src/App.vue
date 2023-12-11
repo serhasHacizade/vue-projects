@@ -1,31 +1,32 @@
-<script>
-import { ref, computed } from 'vue';
+<script >
+import Counter from "./composables/Counter.js";
+import Header from "./composables/Header.js";
+import Toggle from "./composables/Toggle.js";
+import Search from "./composables/Search.js";
+
 
 export default {
-  data() {
-    return {
-      title: "Bu bir başlıktır"
-    }
-  },
+  // data() {
+  //   return {
+  //     title: "Bu bir başlıktır"
+  //   }
+  // },
   setup() {
-    const title = ref("Bu bir setup başlıktır");
-    const show = ref(false);
 
-    const toggleIt = () => {
-      show.value = !show.value;
-    }
+    const { counter, oddOrEven } = Counter();
+    const { title, titleLengthMessage } = Header();
+    const { show, toggleIt } = Toggle();
+    const { searchText, isTyping } = Search();
 
-    // const titleLengthMessage = computed(() => {
-    //   return title.value.length + " adet karakter vardır"
-    // });
-    
-    const titleLengthMessage = computed(() => title.value.length + " adet karakter vardır");
-    console.log('titleLengthMessage :>> ', titleLengthMessage);
     return {
       title,
       show,
       toggleIt,
-      titleLengthMessage
+      titleLengthMessage,
+      counter,
+      oddOrEven,
+      searchText,
+      isTyping
     }
   },
 }
@@ -34,10 +35,15 @@ export default {
 <template>
   <h3>{{ title }}</h3>
   <input type="text" v-model="title">
-  {{ titleLengthMessage }}    
+  {{ titleLengthMessage }}
   <button @click="toggleIt">Toggle</button>
   <p v-if="show">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum asperiores perferendis neque nostrum
-    soluta temporibus necessitatibus fuga! Ea, vero, doloribus delectus nobis quod provident earum quaerat quo perferendis,
+    soluta temporibus necessitatibus fuga! Ea, vero, doloribus delectus nobis quod provident earum quaerat quo
+    perferendis,
     dolorem tenetur?</p>
-
+  <hr>
+  <button @click="counter++">{{ counter }} {{ oddOrEven }}</button>
+  <hr>
+  <input type="text" v-model="searchText">
+  <p v-if="isTyping">Şu an yazıyor...</p>
 </template>
